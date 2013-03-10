@@ -1,4 +1,4 @@
-package com.github.tjake.rbm;
+package com.pannous.rbm;
 
 import java.util.Arrays;
 
@@ -7,7 +7,7 @@ import java.util.Arrays;
  */
 public class Layer {
 
-    final float[] layer;
+    public final float[] layer;
 
     public Layer(int size) {
         layer = new float[size];
@@ -57,5 +57,11 @@ public class Layer {
 
     public float[] get() {
         return layer;
+    }
+
+
+    public void add(float[] vector) {
+        for (int i = 0; i < vector.length; i++)
+            layer[i] += vector[i];
     }
 }

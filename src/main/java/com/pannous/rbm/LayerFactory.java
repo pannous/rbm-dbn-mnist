@@ -1,4 +1,4 @@
-package com.github.tjake.rbm;
+package com.pannous.rbm;
 
 
 import java.awt.image.BufferedImage;

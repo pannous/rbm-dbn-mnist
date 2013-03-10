@@ -1,7 +1,7 @@
-package com.github.tjake.rbm.minst;
+package com.pannous.rbm.minst;
 
 
-import com.github.tjake.rbm.*;
+import com.pannous.rbm.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,7 +43,7 @@ public class GenerativeMinstDBN extends Canvas {
             input.set(input.size() - 10 + current, 100000.0f);
 
 
-            Iterator<Tuple> it = r.iterator(input);
+            Iterator<State> it = r.iterator(input);
 
             for (int i = 0; i < 1; i++)
                 it.next();

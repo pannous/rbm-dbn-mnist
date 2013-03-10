@@ -12,10 +12,20 @@
     </repositories>
 
     <dependencies>
-      
+
+        <dependency>
+            <groupId>com.zeroturnaround</groupId>
+            <artifactId>skype-bot</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.2</version>
+        </dependency>
     </dependencies>
 
-    <properties> 
+    <properties>
         <skip.minst>false</skip.minst>
     </properties>
 
@@ -113,7 +123,7 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.github.tjake.rbm.minst.Demo</mainClass>
+                                    <mainClass>com.pannous.rbm.Demo</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

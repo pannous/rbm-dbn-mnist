@@ -1,4 +1,4 @@
-package com.github.tjake.rbm;
+package com.pannous.rbm;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -90,7 +90,7 @@ public class StackedRBM extends SimpleRBM {
         throw new NotImplementedException();
     }
 
-    public Iterator<Tuple> iterator(Layer visible) {
+    public Iterator<State> iterator(Layer visible) {
         Layer input = visible;
 
         int stackNum = innerRBMs.size();
@@ -101,7 +101,7 @@ public class StackedRBM extends SimpleRBM {
 
             if (i == (stackNum-1))
             {
-                return iRBM.iterator(visible,new Tuple.Factory(input));
+                return iRBM.iterator(visible,new State.Factory(input));
             }
 
             visible = iRBM.activateHidden(visible,null);
@@ -111,17 +111,17 @@ public class StackedRBM extends SimpleRBM {
     }
 
     @Override
-    public Iterator<Tuple> reverseIterator(Layer visible) {
+    public Iterator<State> reverseIterator(Layer visible) {
         throw new NotImplementedException();
     }
 
     @Override
-    public Iterator<Tuple> iterator(Layer visible, Tuple.Factory tfactory) {
+    public Iterator<State> iterator(Layer visible, State.Factory tfactory) {
         throw new NotImplementedException();
     }
 
     @Override
-    public Iterator<Tuple> reverseIterator(Layer visible, Tuple.Factory tfactory) {
+    public Iterator<State> reverseIterator(Layer visible, State.Factory tfactory) {
         throw new NotImplementedException();
     }
 

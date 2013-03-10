@@ -1,12 +1,12 @@
-package com.github.tjake.util;
+package com.pannous.util;
 
 
-import com.github.tjake.rbm.Layer;
+import com.pannous.rbm.Layer;
 import java.util.Random;
 
 public class Utilities {
 
-    static Random staticRand = new Random();
+    static Random staticRandom = new Random();
 
     public static float mean(final Layer input)
     {
@@ -32,12 +32,12 @@ public class Utilities {
     }
 
     public static Layer bernoulli(Layer input)
-    {
+    {                   // ??????????????????????????????
         Layer output = input.clone();
         //using uniform distribution, filter out all negative values
         //from inputs, keeping mostly strong weights
         for (int i=0; i<output.size(); i++)
-            output.set(i, staticRand.nextFloat() < input.get(i) ? 1.0f : 0.0f);
+            output.set(i, staticRandom.nextFloat() < input.get(i) ? 1.0f : 0.0f);
 
         return output;
     }

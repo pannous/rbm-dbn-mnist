@@ -1,8 +1,6 @@
-package com.github.tjake.rbm;
+package com.pannous.rbm;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class StackedRBMTrainer {

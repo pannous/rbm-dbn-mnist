@@ -1,7 +1,7 @@
-package com.github.tjake.rbm;
+package com.pannous.rbm;
 
 
-import com.github.tjake.util.Utilities;
+import com.pannous.util.Utilities;
 
 /**
  * Converts raw values to standard deviations

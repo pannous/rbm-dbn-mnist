@@ -1,35 +1,26 @@
-package com.github.tjake.rbm.minst;
+package com.pannous.rbm.minst;
+
+import com.pannous.rbm.DatasetReader;
+import com.pannous.rbm.LabeledItem;
 
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOError;
 import java.io.IOException;
-import java.security.SecureRandom;
 import java.util.*;
 import java.util.zip.GZIPInputStream;
 
 /**
  * Reads the Minst image data from
  */
-public class MinstDatasetReader implements Enumeration<MinstItem>
+public class MinstDatasetReader extends DatasetReader
 {
     final DataInputStream labelsBuf;
     final DataInputStream imagesBuf;
 
-    SecureRandom r = new SecureRandom();
-
-    final Map<String, List<MinstItem>> trainingSet = new HashMap<String, List<MinstItem>>();
-    final Map<String, List<MinstItem>> testSet = new HashMap<String, List<MinstItem>>();
-
-    int rows = 0;
-    int cols = 0;
-    int count = 0;
-    int current = 0;
-
-    public MinstDatasetReader(File labelsFile, File imagesFile)
-    {
+    public MinstDatasetReader(File labelsFile, File imagesFile) throws Exception {
+        super();
         try
         {
             labelsBuf = new DataInputStream(new GZIPInputStream(new FileInputStream(labelsFile)));
@@ -39,43 +30,33 @@ public class MinstDatasetReader implements Enumeration<MinstItem>
 
             createTrainingSet();
         }
-        catch (FileNotFoundException e)
+        catch (Exception e)
         {
-            throw new IOError(e);
-        }
-        catch (IOException e)
-        {
-            throw new IOError(e);
+            throw e;
         }
         finally
         {
-
-
         }
-
-
-
     }
 
     public void createTrainingSet() {
         boolean done = false;
 
         while (!done || !hasMoreElements()) {
-            MinstItem i = nextElement();
+            LabeledItem i = nextElement();
 
-            if (r.nextDouble() > 0.3) {
-                List<MinstItem> l = testSet.get(i.label);
+            if (random.nextDouble() > 0.3) {
+                List<LabeledItem> l = testSet.get(i.label);
                 if (l == null)
-                    l = new ArrayList<MinstItem>();
+                    l = new ArrayList<LabeledItem>();
                 testSet.put(i.label, l);
 
                 l.add(i);
             } else {
-                List<MinstItem> l = trainingSet.get(i.label);
+                List<LabeledItem> l = trainingSet.get(i.label);
                 if (l == null)
-                    l = new ArrayList<MinstItem>();
+                    l = new ArrayList<LabeledItem>();
                 trainingSet.put(i.label, l);
-
                 l.add(i);
             }
 
@@ -83,7 +64,7 @@ public class MinstDatasetReader implements Enumeration<MinstItem>
                 continue;
 
             boolean isDone = true;
-            for (Map.Entry<String, List<MinstItem>> entry : trainingSet.entrySet()) {
+            for (Map.Entry<String, List<LabeledItem>> entry : trainingSet.entrySet()) {
                 if (entry.getValue().size() < 100) {
                     isDone = false;
                     break;
@@ -92,27 +73,6 @@ public class MinstDatasetReader implements Enumeration<MinstItem>
 
             done = isDone;
         }
-    }
-
-    public MinstItem getTestItem()
-    {
-        List<MinstItem> list = testSet.get(String.valueOf(r.nextInt(10)));
-        return list.get(r.nextInt(list.size()));
-
-    }
-
-    public MinstItem getTrainingItem()
-    {
-        List<MinstItem> list = trainingSet.get(String.valueOf(r.nextInt(10)));
-        return list.get(r.nextInt(list.size()));
-
-    }
-
-    public MinstItem getTrainingItem(int i)
-    {
-        List<MinstItem> list = trainingSet.get(String.valueOf(i));
-        return list.get(r.nextInt(list.size()));
-
     }
 
     private void verify() throws IOException
@@ -135,14 +95,9 @@ public class MinstDatasetReader implements Enumeration<MinstItem>
         count = imageCount;
     }
 
-    public boolean hasMoreElements()
+    public LabeledItem nextElement()
     {
-        return current < count;
-    }
-
-    public MinstItem nextElement()
-    {
-        MinstItem m = new MinstItem();
+        LabeledItem m = new LabeledItem();
 
         try
         {
