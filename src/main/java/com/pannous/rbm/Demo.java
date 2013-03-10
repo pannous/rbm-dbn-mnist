@@ -25,9 +25,9 @@ public class Demo {
 
         if (args.length < 2) {
             usage("Starting examples");
-            RBM_Demo();
+            GraphicsRBM.start();
+//            RBM_Demo();
 //            DBM_Demo();
-//            GraphicsRBM.start();
             Debugger.info("DONE");
             System.exit(0);
         }
