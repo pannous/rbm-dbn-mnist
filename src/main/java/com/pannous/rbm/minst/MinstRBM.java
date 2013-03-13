@@ -11,6 +11,8 @@ public class MinstRBM extends RbmCanvas {
 
     DatasetReader dr;
     static int count = 0;
+    int iterations=2;// Growing over time
+
     //    final SimpleRBM rbm;
 //    List<int[]> outputs = new ArrayList<int[]>();
     final LayerFactory layerFactory = new LayerFactory();
@@ -42,8 +44,10 @@ public class MinstRBM extends RbmCanvas {
         }
 
         double error = trainer.learn(rbm, inputBatch, false); //up down
-        if (count % 100 == 0)
+        if (count % 100 == 0){
             System.err.println("Error = " + error + ", Energy = " + rbm.freeEnergy());
+            iterations++;
+        }
 
         return inputBatch.get(inputBatch.size() - 1).get();
     }
@@ -53,7 +57,7 @@ public class MinstRBM extends RbmCanvas {
         label = test.label;
         Layer input = layerFactory.create(test.data.length);
         for (int i = 0; i < labeledItem.data.length; i++)
-            input.set(i, labeledItem.data[i]);
+            input.set(i, labeledItem.data[i]/255.0f);
         return rbm.iterator(input);
     }
 
@@ -62,7 +66,7 @@ public class MinstRBM extends RbmCanvas {
         synchronized (outputs) {
             outputs.clear();//!!
             //  feed this system 10 times with its own data
-            for (int j = 0; j < 10; j++) {
+            for (int j = 0; j < iterations; j++) {
                 State t = it.next();
                 Layer layer = t.visible;
                 visualize(layer);

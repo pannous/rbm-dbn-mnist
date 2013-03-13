@@ -7,4 +7,9 @@ public class LabeledItem
 {
     public String label;
     public int[] data;
+
+    @Override
+    public String toString() {
+        return label + " (int[" + data.length + "])";
+    }
 }

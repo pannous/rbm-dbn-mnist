@@ -6,7 +6,7 @@ public  class State
     public final Layer hidden;
     public final Layer input;   //For a DBN this is the initial input layer
 
-    protected State(Layer input, Layer visible, Layer hidden)
+    public State(Layer input, Layer visible, Layer hidden)
     {
         this.input = input;
         this.visible = visible;

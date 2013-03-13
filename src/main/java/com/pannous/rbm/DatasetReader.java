@@ -11,7 +11,7 @@ public abstract class DatasetReader implements Enumeration<LabeledItem>
 
     protected SecureRandom random = new SecureRandom();
 
-    protected final Map<String, List<LabeledItem>> trainingSet = new HashMap<String, List<LabeledItem>>();
+    public final Map<String, List<LabeledItem>> trainingSet = new HashMap<String, List<LabeledItem>>();
     protected final Map<String, List<LabeledItem>> testSet = new HashMap<String, List<LabeledItem>>();
 
     public int rows = 0;
@@ -23,27 +23,29 @@ public abstract class DatasetReader implements Enumeration<LabeledItem>
     public DatasetReader() {
     }
 
-    public LabeledItem getTestItem()
+    public LabeledItem getTestItem() {
+        return getTestItem(-1);
+    }
+
+    public LabeledItem getTestItem(int i)
     {
-        int i = random.nextInt(10);
-        List<LabeledItem> list = testSet.get(String.valueOf(i));// Random digit / number
-        return list.get(random.nextInt(list.size()));// random sample
+        Object[] keys = testSet.keySet().toArray();
+        if(i==-1) i = random.nextInt(keys.length);
+        List<LabeledItem> list = testSet.get(keys[i]);
+        return list.get(random.nextInt(list.size()));
+
     }
 
     public LabeledItem getTrainingItem() {
-        Object[] keys = trainingSet.keySet().toArray();
-//        if(keys.length==0) throw new Exception("trainingSet must contain at least one list");
-        if(keys.length==0) System.err.println("trainingSet must contain at least one list");
-        List<LabeledItem> list = trainingSet.get(keys[random.nextInt(keys.length)]);
-        return list.get(random.nextInt(list.size()));
-
+        return getTrainingItem(-1);// random
     }
 
     public LabeledItem getTrainingItem(int i)
     {
-        List<LabeledItem> list = trainingSet.get(String.valueOf(i));
+        Object[] keys = trainingSet.keySet().toArray();
+        if(i==-1) i = random.nextInt(keys.length);
+        List<LabeledItem> list = trainingSet.get(keys[i]);
         return list.get(random.nextInt(list.size()));
-
     }
 
     public boolean hasMoreElements()

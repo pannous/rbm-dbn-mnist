@@ -1,11 +1,11 @@
 package com.pannous.rbm;
 
 
+import com.pannous.rbm.graphics.GraphicsDBM;
 import com.pannous.rbm.graphics.GraphicsRBM;
 import com.pannous.rbm.minst.GenerativeMinstDBN;
 import com.pannous.rbm.minst.MinstDBN;
 import com.pannous.rbm.minst.MinstRBM;
-import com.pannous.util.AudioCapture;
 import com.pannous.util.Debugger;
 
 import java.io.File;
@@ -25,7 +25,9 @@ public class Demo {
 
         if (args.length < 2) {
             usage("Starting examples");
-            GraphicsRBM.start();
+//            GraphicsNet.start();
+//            GraphicsRBM.start();
+            GraphicsDBM.start();
 //            RBM_Demo();
 //            DBM_Demo();
             Debugger.info("DONE");

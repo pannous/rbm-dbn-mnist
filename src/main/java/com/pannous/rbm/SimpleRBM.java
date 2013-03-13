@@ -19,7 +19,7 @@ public class SimpleRBM {
 
     Random rand = new Random();
 
-    protected float scale = 0.001f;
+    protected float scale = 0.01f;
     boolean gaussianVisibles = false;
     public int numVisible;
     public int numHidden;

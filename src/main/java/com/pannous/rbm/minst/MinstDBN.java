@@ -14,6 +14,7 @@ public class MinstDBN extends RbmCanvas{
     StackedRBM stackedRBM;
     final StackedRBMTrainer trainer;
     final LayerFactory layerFactory = new LayerFactory();
+    private int iterations=2;
 
     public MinstDBN(File labels, File images) throws Exception {
         datasetReader = new MinstDatasetReader(labels, images);
@@ -128,7 +129,6 @@ public class MinstDBN extends RbmCanvas{
         while (true) {
             try {
                 dbn.update();
-                AudioCapture.start();
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
 
@@ -180,7 +180,7 @@ public class MinstDBN extends RbmCanvas{
         Iterator<State> it = evaluate(testCase);
 
         float[] labeld = new float[10];
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < iterations; i++) {
             State t = it.next();
             Layer layer = t.visible;
             visualize(layer);
